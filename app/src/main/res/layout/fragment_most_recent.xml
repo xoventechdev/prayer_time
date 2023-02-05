@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    tools:context=".MostRecentFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:id="@+id/swipeRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/SCREEN_BACKGROUND"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.core.widget.NestedScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView android:id="@+id/top_time_section" android:layout_width="match_parent" android:layout_height="100dp" android:layout_margin="5dp" android:elevation="1dp" app:cardCornerRadius="10dp" style="@style/CARD_SCREEN_BACKGROUND">
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="10dp" android:weightSum="3">
+            <LinearLayout android:orientation="vertical" android:id="@+id/day_and_date_container" android:layout_width="match_parent" android:layout_height="match_parent" android:weightSum="4" android:layout_weight="1">
+                <TextView android:textSize="10sp" android:id="@+id/today_indicate" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="আজ" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+                <com.al.tobangla.views.BNTextView   android:textSize="12sp" android:gravity="center" android:id="@+id/day_bangla" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="আজকের বার" android:layout_weight="1" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+                <com.al.tobangla.views.BNTextView android:textSize="12sp" android:gravity="center" android:id="@+id/date_bangla" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="আজকের তারিখ" android:layout_weight="1" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="2">
+                    <TextView android:textSize="10sp" android:gravity="center_horizontal" android:id="@+id/sun_rise" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="সূর্যোদয়" android:layout_weight="1" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+                    <TextView android:textSize="10sp" android:gravity="center_horizontal" android:id="@+id/sun_set" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="সূর্যাস্ত" android:layout_weight="1" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1">
+                <com.airbnb.lottie.LottieAnimationView android:id="@+id/anim_by_time" android:layout_width="match_parent" android:layout_height="match_parent" app:lottie_autoPlay="true" app:lottie_loop="true"/>
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1">
+                <TextView android:textSize="12sp" android:gravity="center" android:id="@+id/sahri" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="সাহরী" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+                <TextView android:textSize="12sp" android:gravity="center" android:id="@+id/ifter" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ইফতার" android:fontFamily="@font/kalpurush_reg" style="@style/SECONDARY_TEXT_COLOR"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView android:id="@+id/prayer_time_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_below="@+id/top_time_section" app:cardCornerRadius="10dp" app:cardElevation="1dp">
+        <RelativeLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="horizontal" android:id="@+id/top_running_time" android:padding="5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="3">
+                <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@+id/running_wact" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1">
+                    <TextView android:textSize="15sp" android:gravity="center_horizontal" android:id="@+id/indicate_wact" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="ওয়াক্ত চলিতেছে" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="18sp" android:textColor="@color/white" android:gravity="center" android:id="@+id/tv_salat_name" android:background="@drawable/button_bac_two" android:padding="5dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="..." android:drawableLeft="@drawable/circle_24" android:drawableRight="@drawable/circle_24" android:fontFamily="@font/kalpurush_reg"/>
+                    <TextView android:textSize="12sp" android:gravity="center" android:id="@+id/tv_running_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00 - 00:00" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </LinearLayout>
+                <LinearLayout android:gravity="center" android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1">
+                    <View android:layout_gravity="center" android:background="@android:color/darker_gray" android:layout_width="1dp" android:layout_height="50dp"/>
+                </LinearLayout>
+                <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@+id/real_time_container" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:textSize="12sp" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="এখন সময়" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="14sp" android:gravity="center" android:id="@+id/time_now" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="00:00:00" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="12sp" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="সময় বাকি আছে" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="14sp" android:gravity="center" android:id="@+id/time_has" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="00 ঘন্টা 00 মিনিট" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </LinearLayout>
+            </LinearLayout>
+            <View android:id="@+id/view_line1" android:background="@android:color/darker_gray" android:layout_width="match_parent" android:layout_height="1dp" android:layout_below="@+id/top_running_time"/>
+            <LinearLayout android:orientation="vertical" android:id="@+id/next_running_time" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/view_line1">
+                <TextView android:textSize="15sp" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="পরবর্তী ওয়াক্ত" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/tahajjud" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_tahajjud" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="তাহাজ্জুদ" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/tahajjud_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/fajar" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_fajar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ফজর" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/fajar_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/esrek" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_esrak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ইশরাক" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/esrak_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/duhar" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_duhar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="যোহর" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/duhar_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/asar" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_asar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="আসর" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/asar_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/magrib" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_magrib" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="মাগরিব" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/magrib_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+                <RelativeLayout android:orientation="horizontal" android:id="@+id/isha" android:background="@drawable/button_bac" android:padding="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp">
+                    <TextView android:textSize="15sp" android:id="@+id/name_isha" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="এশা" android:layout_alignParentLeft="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                    <TextView android:textSize="15sp" android:id="@+id/isha_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00" android:layout_alignParentRight="true" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView android:id="@+id/wact_details_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_below="@+id/prayer_time_container" android:elevation="1dp" app:cardCornerRadius="10dp">
+        <TextView android:textSize="15sp" android:gravity="center" android:id="@+id/wact_details" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:text="..." android:layout_below="@+id/top_running_time" android:layout_centerInParent="true" android:fontFamily="@font/kalpurush_reg" android:layout_marginStart="5dp" android:layout_marginEnd="5dp" style="@style/PRIMARY_TEXT_COLOR"/>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+</androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

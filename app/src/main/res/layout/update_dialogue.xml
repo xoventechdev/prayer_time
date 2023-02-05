@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical" android:padding="5dp" android:layout_width="220dp" android:layout_height="300dp" android:layout_margin="10dp">
+        <TextView android:textSize="20sp" android:textStyle="bold" android:textColor="@color/black" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Update Now?"/>
+        <TextView android:textSize="12sp" android:textStyle="bold" android:textColor="@android:color/darker_gray" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="New version is now available."/>
+        <TextView android:textSize="15sp" android:textColor="@color/black" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20sp" android:text="নামাজের সময়সূচি ও প্রস্তুতি recommends that you update to the latest version. You can keep using this app while downloading the update." android:fontFamily="@font/kalpurush_reg"/>
+        <LinearLayout android:layout_gravity="right" android:orientation="horizontal" android:layout_width="200dp" android:layout_height="50dp" android:layout_marginTop="10dp" android:weightSum="2">
+            <TextView android:textSize="12sp" android:textStyle="bold" android:textColor="#138c43" android:gravity="left|center_vertical|center_horizontal|center" android:id="@+id/later_button" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="10dp" android:text="LATER" android:layout_weight="1"/>
+            <TextView android:textSize="12sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:id="@+id/update_button" android:background="#138c43" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="10dp" android:text="UPDATE" android:layout_weight="1"/>
+        </LinearLayout>
+        <View android:background="@android:color/darker_gray" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="5dp"/>
+        <ImageView android:layout_width="120dp" android:layout_height="50dp" android:layout_margin="5dp"
+            android:src="@drawable/share_google_play_logo" android:scaleType="centerCrop"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:orientation="vertical" android:layout_width="300dp" android:layout_height="200dp" android:layout_margin="10dp">
+        <ImageView android:id="@+id/close_dialogue"
+            android:background="@drawable/button_red_aleart_bac" android:layout_width="25dp" android:layout_height="25dp"
+            android:src="@drawable/close_24" android:layout_alignParentRight="true"/>
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <TextView android:textSize="18sp" android:gravity="left|center_vertical|center_horizontal|center"
+                android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="আপনার জেলা/বিভাগ নির্বাচন করুন?" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+            <Spinner android:layout_gravity="center_horizontal" android:id="@+id/spinner" android:background="@drawable/spinner_bac" android:layout_width="200dp" android:layout_height="40dp" android:layout_margin="10dp" android:textAlignment="center"/>
+            <TextView android:textSize="18sp" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@+id/change_location" android:background="@drawable/button_bac" android:layout_width="200dp" android:layout_height="40dp" android:text="পরিবর্তন করুন" android:fontFamily="@font/kalpurush_reg" style="@style/PRIMARY_TEXT_COLOR"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
