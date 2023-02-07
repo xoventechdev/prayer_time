@@ -52,4 +52,11 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
 
 
+    implementation 'org.apache.commons:commons-text:1.7'
+    //RxJava 3
+    implementation "io.reactivex.rxjava3:rxjava:3.0.7"
+    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+
+
+
 }

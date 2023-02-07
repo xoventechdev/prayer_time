@@ -2,18 +2,30 @@ package us.xoventech.playertime;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -35,7 +47,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 
-public class MainActivity extends AppCompatActivity {
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.TextStyle;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+
+import us.xoventech.playertime.test.GPSTracker;
+
+public class MainActivity extends AppCompatActivity  {
 
     private static final String ONESIGNAL_APP_ID = "9fc7ab61-79ef-4fa9-9add-8b948051a365";
     public static SharedPreferences.Editor editor;
@@ -46,11 +69,53 @@ public class MainActivity extends AppCompatActivity {
     Dialog dialog;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    String mPermission = android.Manifest.permission.ACCESS_FINE_LOCATION;
 
+
+
+    // GPSTracker class
+    GPSTracker gps;
+
+    Geocoder geocoder;
+    List<Address> addresses = null;
+    public static String getFull, forShow;
+    String address;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        SharedPreferences sharedPreferences2 = getSharedPreferences("2131820591", 0);
+        sharedPreferences = sharedPreferences2;
+        editor = sharedPreferences2.edit();
+
+        getFull = sharedPreferences.getString("district_name", null);
+
+        try {
+            if (ActivityCompat.checkSelfPermission(this, mPermission)
+                    != this.getPackageManager().PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{mPermission},
+                        REQUEST_CODE_PERMISSION);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        location = (TextView) findViewById(R.id.loacation);
+        if (!(getFull == null)){
+            location.setText(getFull);
+        }
+
+        if (Objects.equals(getFull, null)){
+            checkLocation();
+        }
+
+
 
 
 
@@ -63,22 +128,23 @@ public class MainActivity extends AppCompatActivity {
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLyout);
         final ViewPager2 viewPager2 = (ViewPager2) findViewById(R.id.viewPager);
         this.banner_container = (LinearLayout) findViewById(R.id.banner_container);
-        location = (TextView) findViewById(R.id.loacation);
+
         this.adView = (AdView) findViewById(R.id.adView);
-        SharedPreferences sharedPreferences2 = getSharedPreferences("2131820591", 0);
-        sharedPreferences = sharedPreferences2;
-        editor = sharedPreferences2.edit();
+
+
         if (InternetChecker.checkInternet(this)) {
-           // createUpdateDialogue();
+//            createUpdateDialogue();
         }
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
         OneSignal.promptForPushNotifications();
+
         location.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (InternetChecker.checkInternet(MainActivity.this)) {
-                    MainActivity.this.locationSet_Dialogue();
+                    checkLocation();
+                    //MainActivity.this.locationSet_Dialogue();
                 } else {
                     new AlertDialog.Builder(MainActivity.this).setTitle(Html.fromHtml("<font color='#FF4242'><b>ইন্টারনেট সংযুক্ত নেই!</b></font>")).setMessage(Html.fromHtml("<font color='#18836F'>আপনার জেলা/বিভাগ পরিবর্তন করার জন্য ইন্টারনেট সংযুক্ত করুন?</font>")).setIcon(R.drawable.warning_icon).setCancelable(false).setPositiveButton("ঠিকাছে", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -88,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        DistrictName.locationSet_data(this);
+        //DistrictName.locationSet_data(this);
         MyViewpagerAdapter myViewpagerAdapter = new MyViewpagerAdapter(this);
         tabLayout.addTab(tabLayout.newTab().setText((CharSequence) "ওয়াক্তের সূচি"));
         tabLayout.addTab(tabLayout.newTab().setText((CharSequence) "ওয়াক্তের প্রস্তুতি"));
@@ -112,6 +178,50 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void checkLocation(){
+
+        // create class object
+        gps = new GPSTracker(MainActivity.this);
+        double latitude = gps.getLatitude();
+        double longitude = gps.getLongitude();
+        // check if GPS enabled
+        //Toast.makeText(this, String.valueOf(latitude)+" = "+longitude, Toast.LENGTH_SHORT).show();
+        if(gps.canGetLocation()){
+
+        }else{
+
+            gps.showSettingsAlert();
+        }
+
+        if (latitude == 0.0 && longitude == 0.0){
+            Toast.makeText(this, "Please, turn on location", Toast.LENGTH_LONG).show();
+        }else {
+            geocoder = new Geocoder(this, Locale.getDefault());
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+
+            getFull = address;
+            forShow = address;
+            MainActivity.editor.putString("district_name", getFull);
+            MainActivity.editor.putString("forShow", forShow);
+            MainActivity.editor.apply();
+            location.setText(forShow);
+        }
+
+
+
+    }
+
     /* access modifiers changed from: private */
     public void locationSet_Dialogue() {
         Dialog dialog2 = new Dialog(this);
@@ -128,9 +238,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "দয়া করে আপনার জেলা/বিভাগ নির্বাচন করুন?", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                MainActivity.editor.putString("district_name", obj);
-                MainActivity.editor.apply();
-                DistrictName.locationSet_data(MainActivity.this);
+//                MainActivity.editor.putString("district_name", obj);
+//                MainActivity.editor.apply();
+                //DistrictName.locationSet_data(MainActivity.this);
                 MostRecentFragment.getSalat_time_data(MainActivity.this);
                 MainActivity.this.dialog.dismiss();
             }
@@ -201,4 +311,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return packageInfo.versionCode;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

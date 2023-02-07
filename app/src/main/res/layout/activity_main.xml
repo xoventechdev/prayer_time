@@ -17,14 +17,14 @@
             android:background="#2196F3"
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/titleBar"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true">
+                android:layout_alignParentLeft="true">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_gravity="center"
                     android:layout_width="40dp"
@@ -35,27 +35,29 @@
                     android:gravity="left|center_vertical|center_horizontal|center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/app_name"
                     android:fontFamily="@font/kalpurush_reg"
                     style="@style/PRIMARY_TEXT_COLOR"/>
             </LinearLayout>
+
             <TextView
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:gravity="center"
+
                 android:id="@+id/loacation"
-                android:background="@drawable/spinner_bac"
-                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="ঢাকা"
+                android:layout_below="@+id/titleBar"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10sp"
+                android:background="@drawable/spinner_bac"
                 android:drawableLeft="@drawable/location_on_24"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/kalpurush_reg"/>
+                android:fontFamily="@font/kalpurush_reg"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
         </RelativeLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:background="#2196F3"
             android:id="@+id/tabLyout"

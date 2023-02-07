@@ -4,8 +4,8 @@ import android.content.Context;
 
 public class DistrictName {
     public static void locationSet_data(Context context) {
-        String string = MainActivity.sharedPreferences.getString("district_name", "ঢাকা*");
-        MainActivity.location.setText(string);
+        String string = MainActivity.sharedPreferences.getString("district_name", null);
+       // MainActivity.location.setText(string);
         if (string.contains("ঢাকা*")) {
             MostRecentFragment.LOCATION = "Dhaka";
         } else if (string.contains("ফরিদপুর")) {

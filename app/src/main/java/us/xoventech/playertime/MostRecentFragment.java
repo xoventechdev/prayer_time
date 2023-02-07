@@ -2,6 +2,9 @@ package us.xoventech.playertime;
 
 
 
+import static us.xoventech.playertime.MainActivity.getFull;
+import static us.xoventech.playertime.MainActivity.location;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -14,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -192,7 +197,8 @@ public class MostRecentFragment extends Fragment {
 
     public static void getSalat_time_data(final Context context) {
         swipeRefresh.setRefreshing(true);
-        Volley.newRequestQueue(context).add(new JsonObjectRequest(0, "https://api.aladhan.com/v1/timingsByAddress?address=" + LOCATION + ",Bangladesh", (JSONObject) null, new Response.Listener<JSONObject>() {
+        Volley.newRequestQueue(context).add(new JsonObjectRequest(0, "https://api.aladhan.com/v1/timingsByAddress?address=" + getFull + "", (JSONObject) null, new Response.Listener<JSONObject>() {
+//        Volley.newRequestQueue(context).add(new JsonObjectRequest(0, "https://api.aladhan.com/v1/timingsByAddress?address=" + LOCATION + ",Bangladesh", (JSONObject) null, new Response.Listener<JSONObject>() {
             public void onResponse(JSONObject jSONObject) {
                 MostRecentFragment.swipeRefresh.setRefreshing(false);
                 Log.d("check", jSONObject.toString());
